@@ -7,10 +7,10 @@
     "dev": "vite",
     "dev:api": "node --import tsx api/index.ts",
     "dev:all": "node --import tsx api/index.ts & vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc --noEmit -p tsconfig.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "check": "tsc -b --noEmit"
+    "check": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "clsx": "^2.1.1",

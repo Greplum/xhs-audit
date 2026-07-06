@@ -1,19 +1,16 @@
 {
   "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
   "functions": {
     "api/xhs/index.ts": {
-      "runtime": "@vercel/node@3.2.0",
       "maxDuration": 30
     }
   },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/xhs",
-      "dest": "/api/xhs/index.ts"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/api/xhs",
+      "destination": "/api/xhs/index.ts"
     }
   ]
 }
