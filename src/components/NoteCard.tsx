@@ -1,4 +1,4 @@
-import { Copy, RefreshCw, CheckCircle, XCircle, AlertTriangle, Loader2, ExternalLink, Clock, Tag } from 'lucide-react';
+import { Copy, RefreshCw, CheckCircle, XCircle, AlertTriangle, Loader2, ExternalLink, Clock, Tag, Video, ImageIcon } from 'lucide-react';
 import { useState } from 'react';
 import type { NoteItem } from '@/types/xhs';
 import { cn } from '@/lib/utils';
@@ -24,6 +24,7 @@ export default function NoteCard({ note, onRetry }: NoteCardProps) {
   const formatInfoText = () => {
     const lines: string[] = [];
     lines.push(`标题：${note.title || '未知'}`);
+    lines.push(`类型：${note.is_video ? '视频' : '图文'}`);
     lines.push(`链接：${note.input_url}`);
     if (note.publish_time) {
       lines.push(`发布时间：${note.publish_time}`);
@@ -135,7 +136,21 @@ export default function NoteCard({ note, onRetry }: NoteCardProps) {
       {(note.status === 'success' || note.status === 'warning') && (
         <div className="space-y-3">
           <div>
-            <div className="text-xs text-gray-500 mb-1">标题</div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs text-gray-500">标题</span>
+              <span className={cn(
+                'inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full',
+                note.is_video
+                  ? 'bg-purple-50 text-purple-600'
+                  : 'bg-blue-50 text-blue-600'
+              )}>
+                {note.is_video ? (
+                  <><Video className="w-3 h-3" />视频</>
+                ) : (
+                  <><ImageIcon className="w-3 h-3" />图文</>
+                )}
+              </span>
+            </div>
             <div className="text-sm font-medium text-gray-800 line-clamp-2">
               {note.title || '未知标题'}
             </div>
