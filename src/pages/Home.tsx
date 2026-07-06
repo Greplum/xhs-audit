@@ -65,7 +65,7 @@ export default function Home() {
 
       const updatedNotes: NoteItem[] = result.results.map((item, index) => {
         let status: NoteItem['status'] = 'error';
-        if (item.is_valid_url && item.is_video && !item.error) {
+        if (item.is_valid_url && !item.error && item.title) {
           status = 'success';
         } else if (item.is_valid_url && !item.error && (item.title || item.tags?.length)) {
           status = 'warning';
@@ -110,7 +110,7 @@ export default function Home() {
         const result: XhsVideoResult = await parseSingleXhsLink(url);
 
         let status: NoteItem['status'] = 'error';
-        if (result.is_valid_url && result.is_video && !result.error) {
+        if (result.is_valid_url && !result.error && result.title) {
           status = 'success';
         } else if (result.is_valid_url && !result.error && (result.title || result.tags?.length)) {
           status = 'warning';
