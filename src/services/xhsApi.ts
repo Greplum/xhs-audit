@@ -1,35 +1,10 @@
-import type { BatchParseResult, XhsVideoResult } from '@/types/xhs';
+import { parseXhsVideoLink, parseXhsVideoLinks } from '@/utils/xhsParser';
+import type { BatchParseResult, XhsVideoResult } from '@/utils/xhsParser';
 
 export async function batchParseXhsLinks(text: string): Promise<BatchParseResult> {
-  const response = await fetch('/api/xhs/parse', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ text }),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || '请求失败');
-  }
-
-  return response.json();
+  return parseXhsVideoLinks(text);
 }
 
 export async function parseSingleXhsLink(url: string): Promise<XhsVideoResult> {
-  const response = await fetch('/api/xhs/parse', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ url }),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || '请求失败');
-  }
-
-  return response.json();
+  return parseXhsVideoLink(url);
 }
